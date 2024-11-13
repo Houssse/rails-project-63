@@ -10,12 +10,12 @@ class TestHexletCode < Minitest::Test
 
   def test_build_img
     result = HexletCode::Tag.build("img", src: "path/to/image")
-    assert_equal "<img src=\"path/to/image\">", result
+    assert_equal '<img src="path/to/image">', result
   end
 
   def test_build_input
     result = HexletCode::Tag.build("input", type: "submit", value: "Save")
-    assert_equal "<input type=\"submit\" value=\"Save\">", result
+    assert_equal '<input type="submit" value="Save">', result
   end
 
   def test_build_label
@@ -25,11 +25,35 @@ class TestHexletCode < Minitest::Test
 
   def test_build_label_options
     result = HexletCode::Tag.build("label", for: "email") { "Email" }
-    assert_equal "<label for=\"email\">Email</label>", result
+    assert_equal '<label for="email">Email</label>', result
   end
 
   def test_build_div_tag
     result = HexletCode::Tag.build("div")
     assert_equal "<div></div>", result
+  end
+
+  def test_create_form
+    user = User.new name: "Jo"
+    result = HexletCode.form_for user do |f|
+    end
+
+    assert_equal '<form action="#" method="post"></form>', result
+  end
+
+  def test_form_attribut
+    user = User.new name: "Jo"
+    result = HexletCode.form_for user, class: "hexlet-form" do |f|
+    end
+
+    assert_equal '<form action="#" method="post" class="hexlet-form"></form>', result
+  end
+
+  def test_form_url
+    user = User.new name: "Jo"
+    result = HexletCode.form_for user, url: "/profile", class: "hexlet-form" do |f|
+    end
+
+    assert_equal '<form action="/profile" method="post" class="hexlet-form"></form>', result
   end
 end
