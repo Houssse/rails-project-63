@@ -1,7 +1,13 @@
-# HexletCode
+### Hexlet tests and linter status:
 
-![CI Status](https://img.shields.io/github/workflow/status/USERNAME/REPO_NAME/CI)
-![Hexlet Check](https://img.shields.io/endpoint?url=https://api.hexlet.io/courses/PROJECT_ID/badge)
+
+![Test Status](https://github.com/Houssse/rails-project-63/actions/workflows/test.yml/badge.svg?branch=main&event=push)
+
+![Linter Status](https://github.com/Houssse/rails-project-63/actions/workflows/lint.yml/badge.svg?branch=main&event=push)
+
+[![Actions Status](https://github.com/Houssse/rails-project-63/actions/workflows/hexlet-check.yml/badge.svg)](https://github.com/Houssse/rails-project-63/actions)
+
+# HexletCode
 
 TODO: Delete this and the text below, and describe your gem
 

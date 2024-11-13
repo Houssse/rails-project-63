@@ -1,4 +1,4 @@
-name: Test Status
+name: Linter Status
 
 on:
   push:
@@ -9,7 +9,7 @@ on:
       - main
 
 jobs:
-  run_tests:
+  run_linter:
     runs-on: ubuntu-latest
 
     steps:
@@ -26,6 +26,6 @@ jobs:
           gem install bundler
           bundle install
 
-      - name: Run tests
+      - name: Run RuboCop linter
         run: |
-          make test
+          make lint
