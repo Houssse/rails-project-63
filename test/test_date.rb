@@ -11,5 +11,5 @@ def form_field_url
 end
 
 def form_defolt_attrubute
-  '<form action="#" method="post"><textarea name="job" cols="50" rows="50">hexlet</textarea></form>'
+  '<form action="#" method="post"><input name="name" type="text" value="rob" class="user-input"><textarea name="job" cols="50" rows="50">hexlet</textarea><input type="submit" value="Save"></form>' # rubocop:disable Layout/LineLength
 end

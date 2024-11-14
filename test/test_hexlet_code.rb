@@ -15,22 +15,12 @@ class TestHexletCode < Minitest::Test
     assert_equal expected, result
   end
 
-  def test_add_class_to_form_field
+  def test_generate_textarea_with_attributes
     user = User.new name: "rob", job: "hexlet", gender: "m"
     result = HexletCode.form_for user, url: "#" do |f|
       f.input :name, class: "user-input"
-      f.input :job
-    end
-
-    expected = form_field_url
-
-    assert_equal expected, result
-  end
-
-  def test_generate_textarea_with_default_attributes
-    user = User.new name: "rob", job: "hexlet", gender: "m"
-    result = HexletCode.form_for user, url: "#" do |f|
       f.input :job, as: :text, rows: 50, cols: 50
+      f.submit
     end
 
     expected = form_defolt_attrubute
@@ -38,13 +28,11 @@ class TestHexletCode < Minitest::Test
     assert_equal expected, result
   end
 
-  def test_error_for_missing_attribute # rubocop:disable Metrics/MethodLength
+  def test_error_for_missing_attribute
     user = User.new name: "rob", job: "hexlet", gender: "m"
 
     begin
       HexletCode.form_for(user, url: "/users") do |f|
-        f.input :name
-        f.input :job, as: :text
         f.input :age
       end
     rescue HexletCode::Error => e

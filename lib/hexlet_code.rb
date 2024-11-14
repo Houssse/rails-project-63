@@ -43,6 +43,10 @@ module HexletCode
       end
     end
 
+    def submit(value: "Save")
+      @form_content += Tag.build("input", type: "submit", value: value)
+    end
+
     attr_reader :form_content
   end
 
