@@ -3,19 +3,19 @@
 require_relative "test_helper"
 require_relative "test_date"
 class TestHexletCode < Minitest::Test
-  def test_generate_input_and_textarea_fields
+  def test_generates_form_with_default_attributes
     user = User.new name: "rob", job: "hexlet", gender: "m"
     result = HexletCode.form_for user do |f|
       f.input :name
       f.input :job, as: :text
     end
 
-    expected = form_field
+    expected = form_with_default_attributes
 
     assert_equal expected, result
   end
 
-  def test_generate_textarea_with_attributes
+  def test_generates_form_with_custom_textarea_attributes
     user = User.new name: "rob", job: "hexlet", gender: "m"
     result = HexletCode.form_for user, url: "#" do |f|
       f.input :name, class: "user-input"
@@ -23,7 +23,7 @@ class TestHexletCode < Minitest::Test
       f.submit value: "Create"
     end
 
-    expected = form_defolt_attrubute
+    expected = form_with_custom_textarea_attributes
 
     assert_equal expected, result
   end
