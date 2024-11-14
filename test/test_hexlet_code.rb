@@ -40,15 +40,19 @@ class TestHexletCode < Minitest::Test
   end
 
   def test_erro_attribute
-    result = HexletCode.form_for user, url: '/users' do |f|
+    user = User.new name: 'rob', job: 'hexlet', gender: 'm'
+
+    begin
+      HexletCode.form_for(user, url: '/users') do |f|
         f.input :name
         f.input :job, as: :text
-
         f.input :age
       end
+    rescue HexletCode::Error => e
+      error_message = e.message
+    end
 
-    expected = form_error
-
-    assert_equal expected, result
+    expected_message = "undefined method `age' for #<struct User id=nil, name=nil, job=nil>"
+    assert_equal expected_message, error_message
   end
 end

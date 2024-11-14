@@ -14,7 +14,3 @@ end
 def form_defolt_attrubute
   '<form action="#" method="post"><textarea name="job" cols="50" rows="50">hexlet</textarea></form>'
 end
-
-def form_error
- '=>  \'public_send\': undefined method \'age\' for #<struct User id=nil, name=nil, job=nil> (NoMethodError)'
-end

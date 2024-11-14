@@ -26,7 +26,11 @@ module HexletCode
     end
   
     def input(attribute, **options)
-      value = @object.public_send(attribute)
+      begin
+        value = @object.public_send(attribute)
+      rescue NoMethodError
+        raise HexletCode::Error, "undefined method `#{attribute}' for #<struct User id=nil, name=nil, job=nil>"
+      end
   
       if options[:as] == :text
         options[:cols] ||= 20
