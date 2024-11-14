@@ -4,6 +4,8 @@ require_relative "hexlet_code/version"
 
 # The HexletCode module provides tools for building HTML forms and tags.
 module HexletCode
+  class Error < StandardError; end
+  
   class Tag
     def self.build(tag_name, **options)
       options_string = options.map { |key, value| "#{key}=\"#{value}\"" }.join(" ")
@@ -27,7 +29,9 @@ module HexletCode
       value = @object.public_send(attribute)
   
       if options[:as] == :text
-        @form_content += Tag.build('textarea', name: attribute, cols: 20, rows: 40) { value }
+        options[:cols] ||= 20
+        options[:rows] ||= 40
+        @form_content += Tag.build('textarea', name: attribute, cols: options[:cols], rows: options[:rows]) { value }
       else
         @form_content += Tag.build('input', name: attribute, type: 'text', value: value, **options)
       end

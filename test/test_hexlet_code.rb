@@ -38,4 +38,17 @@ class TestHexletCode < Minitest::Test
 
     assert_equal expected, result
   end
+
+  def test_erro_attribute
+    result = HexletCode.form_for user, url: '/users' do |f|
+        f.input :name
+        f.input :job, as: :text
+
+        f.input :age
+      end
+
+    expected = form_error
+
+    assert_equal expected, result
+  end
 end
