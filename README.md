@@ -1,5 +1,5 @@
-### Hexlet tests and linter status:
 
+### Hexlet tests and linter status:
 
 ![Test Status](https://github.com/Houssse/rails-project-63/actions/workflows/test.yml/badge.svg?branch=main&event=push)
 
@@ -9,40 +9,102 @@
 
 # HexletCode
 
-TODO: Delete this and the text below, and describe your gem
-
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/hexlet_code`. To experiment with that code, run `bin/console` for an interactive prompt.
+HexletCode — это библиотека для генерации HTML-форм. Она позволяет легко создавать формы с кастомизацией различных полей, таких как текстовые поля, текстовые области, а также проверку на наличие соответствующих атрибутов в переданных объектах.
 
 ## Installation
 
-TODO: Replace `UPDATE_WITH_YOUR_GEM_NAME_PRIOR_TO_RELEASE_TO_RUBYGEMS_ORG` with your gem name right after releasing it to RubyGems.org. Please do not do it earlier due to security reasons. Alternatively, replace this section with instructions to install your gem from git if you don't plan to release to RubyGems.org.
+Чтобы установить гем, выполните следующую команду:
 
-Install the gem and add to the application's Gemfile by executing:
+    $ gem install hexlet_code
 
-    $ bundle add UPDATE_WITH_YOUR_GEM_NAME_PRIOR_TO_RELEASE_TO_RUBYGEMS_ORG
+Или добавьте его в ваш Gemfile:
 
-If bundler is not being used to manage dependencies, install the gem by executing:
+    gem 'hexlet_code'
 
-    $ gem install UPDATE_WITH_YOUR_GEM_NAME_PRIOR_TO_RELEASE_TO_RUBYGEMS_ORG
+Затем выполните команду:
+
+    $ bundle install
 
 ## Usage
 
-TODO: Write usage instructions here
+### Пример использования
+
+Для создания формы, основанной на объекте `User`, с полями имени и работы:
+
+```ruby
+# Создаем объект пользователя
+user = User.new(name: 'rob', job: 'hexlet', gender: 'm')
+
+# Генерация формы
+HexletCode.form_for user do |f|
+  f.input :name           # Поле для ввода имени
+  f.input :job, as: :text # Поле для ввода работы с типом textarea
+end
+```
+
+Результатом будет следующая форма:
+
+```html
+<form action="#" method="post">
+  <input name="name" type="text" value="rob">
+  <textarea name="job" cols="20" rows="40">hexlet</textarea>
+</form>
+```
+
+Для добавления кастомных атрибутов, например, CSS-классов:
+
+```ruby
+# Генерация формы с кастомными аттрибутами
+HexletCode.form_for user, url: '#' do |f|
+  f.input :name, class: 'user-input' # Поле с CSS классом
+  f.input :job                       # Поле работы
+end
+```
+
+Результат:
+
+```html
+<form action="#" method="post">
+  <input name="name" type="text" value="rob" class="user-input">
+  <input name="job" type="text" value="hexlet">
+</form>
+```
+
+Для указания дефолтных значений для текстовых полей можно использовать опции:
+
+```ruby
+# Поле для работы с большими размерами
+HexletCode.form_for user do |f|
+  f.input :job, as: :text, rows: 50, cols: 50
+end
+```
+
+Результат:
+
+```html
+<form action="#" method="post">
+  <textarea name="job" cols="50" rows="50">hexlet</textarea>
+</form>
+```
 
 ## Development
 
-After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake test` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
+После клонирования репозитория, выполните:
 
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and the created tag, and push the `.gem` file to [rubygems.org](https://rubygems.org).
+    $ bin/setup
 
-## Contributing
+Для запуска тестов:
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/hexlet_code. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [code of conduct](https://github.com/[USERNAME]/hexlet_code/blob/main/CODE_OF_CONDUCT.md).
+    $ rake test
+
+Для установки гема на вашу локальную машину, используйте:
+
+    $ bundle exec rake install
+
+Чтобы выпустить новую версию, обновите номер версии в `version.rb`, затем выполните:
+
+    $ bundle exec rake release
 
 ## License
 
-The gem is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
-
-## Code of Conduct
-
-Everyone interacting in the HexletCode project's codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/[USERNAME]/hexlet_code/blob/main/CODE_OF_CONDUCT.md).
+Гем доступен под лицензией [MIT License](https://opensource.org/licenses/MIT).

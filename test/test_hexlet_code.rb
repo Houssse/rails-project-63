@@ -3,8 +3,7 @@
 require_relative "test_helper"
 require_relative "test_date"
 class TestHexletCode < Minitest::Test
-
-  def test_form_field
+  def test_generate_input_and_textarea_fields
     user = User.new name: "rob", job: "hexlet", gender: "m"
     result = HexletCode.form_for user do |f|
       f.input :name
@@ -16,10 +15,10 @@ class TestHexletCode < Minitest::Test
     assert_equal expected, result
   end
 
-  def test_form_field_attrubute
-    user = User.new name: 'rob', job: 'hexlet', gender: 'm'
-    result = HexletCode.form_for user, url: '#' do |f|
-      f.input :name, class: 'user-input'
+  def test_add_class_to_form_field
+    user = User.new name: "rob", job: "hexlet", gender: "m"
+    result = HexletCode.form_for user, url: "#" do |f|
+      f.input :name, class: "user-input"
       f.input :job
     end
 
@@ -28,9 +27,9 @@ class TestHexletCode < Minitest::Test
     assert_equal expected, result
   end
 
-  def test_form_defolt_attrubute
-    user = User.new name: 'rob', job: 'hexlet', gender: 'm'
-    result = HexletCode.form_for user, url: '#' do |f|
+  def test_generate_textarea_with_default_attributes
+    user = User.new name: "rob", job: "hexlet", gender: "m"
+    result = HexletCode.form_for user, url: "#" do |f|
       f.input :job, as: :text, rows: 50, cols: 50
     end
 
@@ -39,11 +38,11 @@ class TestHexletCode < Minitest::Test
     assert_equal expected, result
   end
 
-  def test_erro_attribute
-    user = User.new name: 'rob', job: 'hexlet', gender: 'm'
+  def test_error_for_missing_attribute # rubocop:disable Metrics/MethodLength
+    user = User.new name: "rob", job: "hexlet", gender: "m"
 
     begin
-      HexletCode.form_for(user, url: '/users') do |f|
+      HexletCode.form_for(user, url: "/users") do |f|
         f.input :name
         f.input :job, as: :text
         f.input :age
