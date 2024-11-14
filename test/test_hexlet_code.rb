@@ -1,59 +1,41 @@
 # frozen_string_literal: true
 
 require_relative "test_helper"
-
+require_relative "test_date"
 class TestHexletCode < Minitest::Test
-  def test_build_br_tag
-    result = HexletCode::Tag.build("br")
-    assert_equal "<br>", result
-  end
 
-  def test_build_img
-    result = HexletCode::Tag.build("img", src: "path/to/image")
-    assert_equal '<img src="path/to/image">', result
-  end
-
-  def test_build_input
-    result = HexletCode::Tag.build("input", type: "submit", value: "Save")
-    assert_equal '<input type="submit" value="Save">', result
-  end
-
-  def test_build_label
-    result = HexletCode::Tag.build("label") { "Email" }
-    assert_equal "<label>Email</label>", result
-  end
-
-  def test_build_label_options
-    result = HexletCode::Tag.build("label", for: "email") { "Email" }
-    assert_equal '<label for="email">Email</label>', result
-  end
-
-  def test_build_div_tag
-    result = HexletCode::Tag.build("div")
-    assert_equal "<div></div>", result
-  end
-
-  def test_create_form
-    user = User.new name: "Jo"
+  def test_form_field
+    user = User.new name: "rob", job: "hexlet", gender: "m"
     result = HexletCode.form_for user do |f|
+      f.input :name
+      f.input :job, as: :text
     end
 
-    assert_equal '<form action="#" method="post"></form>', result
+    expected = form_field
+
+    assert_equal expected, result
   end
 
-  def test_form_attribut
-    user = User.new name: "Jo"
-    result = HexletCode.form_for user, class: "hexlet-form" do |f|
+  def test_form_field_attrubute
+    user = User.new name: 'rob', job: 'hexlet', gender: 'm'
+    result = HexletCode.form_for user, url: '#' do |f|
+      f.input :name, class: 'user-input'
+      f.input :job
     end
 
-    assert_equal '<form action="#" method="post" class="hexlet-form"></form>', result
+    expected = form_field_url
+
+    assert_equal expected, result
   end
 
-  def test_form_url
-    user = User.new name: "Jo"
-    result = HexletCode.form_for user, url: "/profile", class: "hexlet-form" do |f|
+  def test_form_defolt_attrubute
+    user = User.new name: 'rob', job: 'hexlet', gender: 'm'
+    result = HexletCode.form_for user, url: '#' do |f|
+      f.input :job, as: :text, rows: 50, cols: 50
     end
 
-    assert_equal '<form action="/profile" method="post" class="hexlet-form"></form>', result
+    expected = form_defolt_attrubute
+
+    assert_equal expected, result
   end
 end
