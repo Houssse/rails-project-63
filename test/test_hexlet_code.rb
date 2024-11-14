@@ -20,7 +20,7 @@ class TestHexletCode < Minitest::Test
     result = HexletCode.form_for user, url: "#" do |f|
       f.input :name, class: "user-input"
       f.input :job, as: :text, rows: 50, cols: 50
-      f.submit
+      f.submit value: "Create"
     end
 
     expected = form_defolt_attrubute
