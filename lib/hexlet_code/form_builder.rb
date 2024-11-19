@@ -1,51 +1,40 @@
 # frozen_string_literal: true
 
-require_relative "tag"
-
 # Class for building HTML forms.
 class FormBuilder
-  def initialize(object)
+  def initialize(object, **attributes)
     @object = object
-    @form_content = ""
-    @submit_added = false
+    @form_body = {
+      inputs: [],
+      submit: { options: nil },
+      form_options: {
+        action: attributes.fetch(:url, "#"),
+        method: attributes.fetch(:method, "post")
+      }.merge(attributes.except(:url, :method))
+    }
   end
 
-  def input(attribute, **options) # rubocop:disable Metrics/MethodLength
+  def input(attribute, **options)
     value = fetch_attribute_value(attribute)
-
-    build_label(attribute)
-
-    if options[:as] == :text
-      options[:cols] ||= 20
-      options[:rows] ||= 40
-      @form_content += Tag.build("textarea", name: attribute,
-                                             id: "input_#{attribute}",
-                                             cols: options[:cols],
-                                             rows: options[:rows]) { value }
-    else
-      @form_content += Tag.build("input", name: attribute,
-                                          id: "input_#{attribute}",
-                                          type: "text",
-                                          value: value, **options)
-    end
+    @form_body[:inputs] << {
+      name: attribute,
+      type: options[:as] == :text ? "textarea" : "text",
+      value: value,
+      options: options.except(:as)
+    }
   end
 
   def submit(value: "Save")
-    @submit_added = true
-    @form_content += Tag.build("input", type: "submit", value: value)
+    @form_body[:submit][:options] = { value: value }
   end
 
-  def build_label(attribute)
-    label_text = attribute.to_s.capitalize
-    input_id = "input_#{attribute}"
-    @form_content += Tag.build("label", for: input_id) { label_text }
-  end
+  attr_reader :form_body
+
+  private
 
   def fetch_attribute_value(attribute)
     @object.public_send(attribute)
   rescue NoMethodError
     raise HexletCode::Error, "undefined method `#{attribute}' for #<struct User id=nil, name=nil, job=nil>"
   end
-
-  attr_reader :form_content, :submit_added
 end
