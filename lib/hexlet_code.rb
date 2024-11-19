@@ -1,24 +1,12 @@
 # frozen_string_literal: true
 
 require_relative "hexlet_code/version"
+autoload(:Tag, "hexlet_code/tag")
+autoload(:FormBuilder, "hexlet_code/form_builder")
 
 # The HexletCode module provides tools for building HTML forms and tags.
 module HexletCode
   class Error < StandardError; end
-
-  # Class for building HTML tags.
-  class Tag
-    def self.build(tag_name, **options)
-      options_string = options.map { |key, value| "#{key}=\"#{value}\"" }.join(" ")
-      content = block_given? ? yield : ""
-
-      if %w[input br hr img meta link].include?(tag_name)
-        "<#{tag_name} #{options_string}>"
-      else
-        "<#{tag_name} #{options_string}>#{content}</#{tag_name}>"
-      end
-    end
-  end
 
   # Class for building HTML forms.
   class FormBuilder
