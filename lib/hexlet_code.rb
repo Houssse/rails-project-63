@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
-require_relative "hexlet_code/version"
-require_relative "hexlet_code/tag"
-require_relative "hexlet_code/form_builder"
-require_relative "hexlet_code/form_renderer"
+require_relative 'hexlet_code/version'
+require_relative 'hexlet_code/tag'
+require_relative 'hexlet_code/form_builder'
+require_relative 'hexlet_code/form_renderer'
 
 # The HexletCode module provides tools for building HTML forms and tags.
 module HexletCode

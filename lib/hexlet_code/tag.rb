@@ -7,9 +7,9 @@ class Tag
     ordered_keys.uniq!
 
     sorted_options = ordered_keys.filter_map { |key| [key, options[key.to_sym]] if options[key.to_sym] }.to_h
-    options_string = sorted_options.map { |key, value| "#{key}=\"#{value}\"" }.join(" ")
+    options_string = sorted_options.map { |key, value| "#{key}=\"#{value}\"" }.join(' ')
 
-    content = block_given? ? yield : ""
+    content = block_given? ? yield : ''
 
     if %w[input br hr img meta link].include?(tag_name)
       "<#{tag_name} #{options_string}>"

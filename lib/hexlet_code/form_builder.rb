@@ -8,8 +8,8 @@ class FormBuilder
       inputs: [],
       submit: { options: nil },
       form_options: {
-        action: attributes.fetch(:url, "#"),
-        method: attributes.fetch(:method, "post")
+        action: attributes.fetch(:url, '#'),
+        method: attributes.fetch(:method, 'post')
       }.merge(attributes.except(:url, :method))
     }
   end
@@ -18,13 +18,13 @@ class FormBuilder
     value = fetch_attribute_value(attribute)
     @form_body[:inputs] << {
       name: attribute,
-      type: options[:as] == :text ? "textarea" : "text",
+      type: options[:as] == :text ? 'textarea' : 'text',
       value: value,
       options: options.except(:as)
     }
   end
 
-  def submit(value: "Save")
+  def submit(value: 'Save')
     @form_body[:submit][:options] = { value: value }
   end
 
