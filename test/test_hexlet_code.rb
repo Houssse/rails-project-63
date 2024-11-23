@@ -14,31 +14,31 @@ class TestHexletCode < Minitest::Test
     assert_equal expected, result
   end
 
-  # def test_generates_form_with_custom_textarea_attributes
-  #   user = User.new name: 'rob', job: 'hexlet', gender: 'm'
-  #   result = HexletCode.form_for user, url: '#' do |f|
-  #     f.input :name, class: 'user-input'
-  #     f.input :job, as: :text, rows: 50, cols: 50
-  #     f.submit value: 'Create'
-  #   end
+  def test_generates_form_with_custom_textarea_attributes
+    user = User.new name: 'rob', job: 'hexlet', gender: 'm'
+    result = HexletCode.form_for user, url: '#' do |f|
+      f.input :name, class: 'user-input'
+      f.input :job, as: :text, rows: 50, cols: 50
+      f.submit value: 'Create'
+    end
 
-  #   expected = form_with_custom_textarea_attributes
+    expected = load_fixture('custom_textarea_attributes.html')
 
-  #   assert_equal expected, result
-  # end
+    assert_equal expected, result
+  end
 
-  # def test_error_for_missing_attribute
-  #   user = User.new name: 'rob', job: 'hexlet', gender: 'm'
+  def test_error_for_missing_attribute
+    user = User.new name: 'rob', job: 'hexlet', gender: 'm'
 
-  #   begin
-  #     HexletCode.form_for(user, url: '/users') do |f|
-  #       f.input :age
-  #     end
-  #   rescue HexletCode::Error => e
-  #     error_message = e.message
-  #   end
+    begin
+      HexletCode.form_for(user, url: '/users') do |f|
+        f.input :age
+      end
+    rescue HexletCode::Error => e
+      error_message = e.message
+    end
 
-  #   expected_message = "undefined method `age' for #<struct User id=nil, name=nil, job=nil>"
-  #   assert_equal expected_message, error_message
-  # end
+    expected_message = "undefined method `age' for #<struct User id=nil, name=nil, job=nil>"
+    assert_equal expected_message, error_message
+  end
 end
