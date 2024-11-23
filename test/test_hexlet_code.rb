@@ -28,18 +28,16 @@ class TestHexletCode < Minitest::Test
   end
 
   def test_error_for_missing_attribute
-    user = User.new name: 'rob', job: 'hexlet', gender: 'm'
+    user = User.new(name: 'rob', job: 'hexlet', gender: 'm')
 
-    begin
+    error_message = assert_raises(HexletCode::Error) do
       HexletCode.form_for(user, url: '/users') do |f|
         f.input :age
       end
-    rescue HexletCode::Error => e
-      error_message = e.message
     end
 
-    expected_message = "undefined method `age' for #<struct User id=nil, name=nil, job=nil>"
-    assert_equal expected_message, error_message
+    expected_message = 'undefined method `age` for #<struct User id=nil, name=nil, job=nil>'
+    assert_equal expected_message, error_message.message
   end
 
   def test_form_with_submit
