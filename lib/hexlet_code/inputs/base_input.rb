@@ -12,10 +12,6 @@ module HexletCode
         @options = options
       end
 
-      def render
-        raise NotImplementedError, 'Subclasses must implement the #render method'
-      end
-
       def render_label
         Tag.build('label', for: "input_#{name}") { name.capitalize }
       end
