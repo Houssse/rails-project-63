@@ -2,6 +2,8 @@
 
 # Class for building HTML forms.
 class FormBuilder
+  attr_reader :form_body
+
   def initialize(object, **attributes)
     @object = object
     @form_body = {
@@ -24,11 +26,9 @@ class FormBuilder
     }
   end
 
-  def submit(value: 'Save')
+  def submit(value = 'Save')
     @form_body[:submit][:options] = { value: value }
   end
-
-  attr_reader :form_body
 
   private
 

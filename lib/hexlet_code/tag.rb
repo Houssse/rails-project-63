@@ -2,6 +2,8 @@
 
 # Class for building HTML tags.
 class Tag
+  SINGLE_TAGS = %w[input img br].freeze
+
   def self.build(tag_name, **options) # rubocop:disable Metrics/AbcSize
     ordered_keys = %w[name id type value class] + options.keys.map(&:to_s)
     ordered_keys.uniq!
@@ -11,7 +13,7 @@ class Tag
 
     content = block_given? ? yield : ''
 
-    if %w[input br hr img meta link].include?(tag_name)
+    if SINGLE_TAGS.include?(tag_name)
       "<#{tag_name} #{options_string}>"
     else
       "<#{tag_name} #{options_string}>#{content}</#{tag_name}>"

@@ -19,7 +19,7 @@ class TestHexletCode < Minitest::Test
     result = HexletCode.form_for user, url: '#' do |f|
       f.input :name, class: 'user-input'
       f.input :job, as: :text, rows: 50, cols: 50
-      f.submit value: 'Create'
+      f.submit 'Create'
     end
 
     expected = load_fixture('custom_textarea_attributes.html')
