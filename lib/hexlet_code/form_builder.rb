@@ -34,8 +34,6 @@ module HexletCode
 
     def fetch_attribute_value(attribute)
       @object.public_send(attribute)
-    rescue NoMethodError
-      raise HexletCode::Error, "undefined method `#{attribute}` for #<struct User id=nil, name=nil, job=nil>"
     end
 
     def resolve_input_class(type)
