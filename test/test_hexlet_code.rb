@@ -41,4 +41,35 @@ class TestHexletCode < Minitest::Test
     expected_message = "undefined method `age' for #<struct User id=nil, name=nil, job=nil>"
     assert_equal expected_message, error_message
   end
+
+  def test_form_with_submit
+    user = User.new(name: 'rob', job: 'hexlet')
+    result = HexletCode.form_for(user) do |f|
+      f.submit 'Save'
+    end
+
+    expected = load_fixture('form_with_submit.html')
+    assert_equal expected, result
+  end
+
+  def test_form_with_put_method
+    user = User.new(name: 'rob', job: 'hexlet')
+    result = HexletCode.form_for(user, method: :put) do |f|
+      f.input :name
+      f.submit 'Update'
+    end
+
+    expected = load_fixture('form_with_put_method.html')
+    assert_equal expected, result
+  end
+
+  def test_form_with_invalid_input_attribute
+    user = User.new(name: 'rob', job: 'hexlet')
+
+    assert_silent do
+      HexletCode.form_for(user) do |f|
+        f.input :name, rows: 50
+      end
+    end
+  end
 end
