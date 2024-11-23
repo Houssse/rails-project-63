@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require_relative 'inputs'
+
 # Class for building HTML forms.
 class FormBuilder
   attr_reader :form_body
@@ -18,12 +20,9 @@ class FormBuilder
 
   def input(attribute, **options)
     value = fetch_attribute_value(attribute)
-    @form_body[:inputs] << {
-      name: attribute,
-      type: options[:as] == :text ? 'textarea' : 'text',
-      value: value,
-      options: options.except(:as)
-    }
+    input_class = resolve_input_class(options[:as])
+    input_instance = input_class.new(attribute, value, **options.except(:as))
+    @form_body[:inputs] << input_instance
   end
 
   def submit(value = 'Save')
@@ -36,5 +35,14 @@ class FormBuilder
     @object.public_send(attribute)
   rescue NoMethodError
     raise HexletCode::Error, "undefined method `#{attribute}' for #<struct User id=nil, name=nil, job=nil>"
+  end
+
+  def resolve_input_class(type)
+    case type
+    when :text
+      HexletCode::Inputs::TextInput
+    else
+      HexletCode::Inputs::StringInput
+    end
   end
 end

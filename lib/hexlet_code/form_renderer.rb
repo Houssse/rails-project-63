@@ -15,17 +15,8 @@ class FormRenderer
     end
   end
 
-  def self.render_inputs(inputs) # rubocop:disable Metrics/AbcSize
-    inputs.map do |input|
-      options = input[:options].merge(name: input[:name])
-      if input[:type] == 'textarea'
-        Tag.build('label', for: "input_#{input[:name]}") { input[:name].capitalize } +
-          Tag.build('textarea', **options) { input[:value] }
-      else
-        Tag.build('label', for: "input_#{input[:name]}") { input[:name].capitalize } +
-          Tag.build('input', type: 'text', value: input[:value], **options)
-      end
-    end.join
+  def self.render_inputs(inputs)
+    inputs.map(&:render).join
   end
 
   def self.render_submit(submit)

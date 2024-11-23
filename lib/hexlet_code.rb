@@ -5,6 +5,8 @@ require_relative 'hexlet_code/tag'
 require_relative 'hexlet_code/form_builder'
 require_relative 'hexlet_code/form_renderer'
 
+autoload(:Inputs, 'hexlet_code/inputs.rb')
+
 # The HexletCode module provides tools for building HTML forms and tags.
 module HexletCode
   class Error < StandardError; end
