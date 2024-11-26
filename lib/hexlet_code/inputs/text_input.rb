@@ -1,17 +1,17 @@
 # frozen_string_literal: true
 
-require_relative 'base_input'
-
 module HexletCode
   module Inputs
     # Input for text data (textarea)
     class TextInput < BaseInput
       TAG_NAME = 'textarea'
+      DEFAULT_ROWS = 5
+      DEFAULT_COLS = 40
 
       def render
         attributes = options.dup
-        attributes[:rows] ||= 5 if options.key?(:rows)
-        attributes[:cols] ||= 40 if options.key?(:cols)
+        attributes[:rows] ||= DEFAULT_ROWS if options.key?(:rows)
+        attributes[:cols] ||= DEFAULT_COLS if options.key?(:cols)
         render_label +
           Tag.build(TAG_NAME, name: name, **attributes) { value }
       end

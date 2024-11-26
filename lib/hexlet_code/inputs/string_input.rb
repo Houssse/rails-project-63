@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require_relative 'base_input'
-
 module HexletCode
   module Inputs
     # Input for string data
