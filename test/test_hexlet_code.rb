@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require_relative 'test_helper'
+require 'minitest/autorun'
 class TestHexletCode < Minitest::Test
   def test_generates_form_with_default_attributes
     user = User.new name: 'rob', job: 'hexlet', gender: 'm'
@@ -27,21 +28,17 @@ class TestHexletCode < Minitest::Test
     assert_equal expected, result
   end
 
-  require 'minitest/autorun'
+  def test_send_not_exists_user_method
+    user = User.new
 
-  class TestHexletCode < Minitest::Test
-    def test_send_not_exists_user_method
-      user = User.new
-
-      error = assert_raises(NoMethodError) do
-        HexletCode.form_for(user) do |f|
-          f.input :company
-          f.submit 'Boom!'
-        end
+    error = assert_raises(NoMethodError) do
+      HexletCode.form_for(user) do |f|
+        f.input :company
+        f.submit 'Boom!'
       end
-
-      assert_match(/undefined method `company'/, error.message)
     end
+
+    assert_match(/undefined method `company'/, error.message)
   end
 
   def test_form_with_submit
